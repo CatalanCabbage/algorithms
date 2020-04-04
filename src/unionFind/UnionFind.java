@@ -22,7 +22,7 @@ public class UnionFind {
      * Initialize all values to that index, since no objects are connected initially
      * Initialize all weights to 1
      */
-    public void initializeUnionFind(int size) {
+    public void initializeUnionFind(int size) { //Should be constructor
         a = new int[size];
         weight = new int[size];
 
