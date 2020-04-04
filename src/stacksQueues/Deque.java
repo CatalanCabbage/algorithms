@@ -3,7 +3,6 @@
  */
 
 import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -13,6 +12,8 @@ import java.util.NoSuchElementException;
  * adding and removing items from either the front or the back of the data structure.
  * Each deque operation (including construction) == O(n)
  * Each Iterator operation (including construction) == O(n)
+ *
+ * Assignment Score: 95/100
  */
 public class Deque<Item> implements Iterable<Item> {
 
@@ -86,7 +87,11 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node currentFirstNode = firstNode;
         firstNode = firstNode.nextNode;
-        firstNode.previousNode = null;
+        if(firstNode == null) { //If there was only 1 node previously, this would be null
+            lastNode = null;
+        } else {
+            firstNode.previousNode = null;
+        }
         size--;
         return currentFirstNode.item;
     }
@@ -98,7 +103,11 @@ public class Deque<Item> implements Iterable<Item> {
         }
         Node currentLastNode = lastNode;
         lastNode = lastNode.previousNode;
-        lastNode.nextNode = null;
+        if(lastNode == null) { //If there was only 1 node previously, this would be null
+            firstNode = null;
+        } else {
+            lastNode.nextNode = null;
+        }
         size--;
         return currentLastNode.item;
     }
@@ -108,7 +117,7 @@ public class Deque<Item> implements Iterable<Item> {
         return new DequeIterator();
     }
 
-    class DequeIterator implements Iterator<Item> {
+    private class DequeIterator implements Iterator<Item> {
         private Node itrFirstNode;
 
         public DequeIterator() {
@@ -137,6 +146,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
+    //Utility method to pretty print the Deque
     private void printQueue() {
         StdOut.println("Deque: ");
         Iterator itr = new DequeIterator();
