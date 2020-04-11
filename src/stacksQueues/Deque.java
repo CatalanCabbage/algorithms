@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ * --Assignment
  * Requirement:
  * Generalization of a stack and a queue that supports
  * adding and removing items from either the front or the back of the data structure.

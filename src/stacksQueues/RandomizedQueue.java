@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ * --Assignment
  * Requirements:
  * Similar to a stack or queue, except that
  * the item removed is chosen uniformly at random among items in the data structure.

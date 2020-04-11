@@ -6,12 +6,14 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
+ * --Assignment
  * Requirement:
  * Client class. Take an integer k(numOfItems) as a command-line argument;
  * read a sequence of strings from standard input using StdIn.readString();
  * print exactly k of them, uniformly at random.
  * Print each item from the sequence at most once.
- * Bonus: Make memory constraint a factor of k (not completed)
+ *
+ * Bonus(not completed): Make memory constraint a factor of k(try Reservoir Sampling)
  * Assignment Score: 95/100
  */
 public class Permutation {
