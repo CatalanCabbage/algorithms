@@ -135,7 +135,8 @@ public class FastCollinearPoints {
 
     // the line segments
     public LineSegment[] segments() {
-        return segments;
+        //If returned without cloning, it returns the reference, which can be mutated by the caller
+        return segments.clone();
     }
 
     public static void main(String[] args) {
