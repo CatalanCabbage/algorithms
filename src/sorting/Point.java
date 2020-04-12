@@ -51,12 +51,21 @@ public class Point implements Comparable<Point> {
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
-        if (this.equals(that)) {
+        if (that == null) {
+            throw new NullPointerException("Input point is null");
+        }
+        if (this.compareTo(that) == 0) {
             return Double.NEGATIVE_INFINITY;
         } else if (that.x - this.x == 0) { //implies slope is vertical
             return Double.POSITIVE_INFINITY;
+        } else if (that.y - this.y == 0) { //implies slope is vertical
+            return 0;
         }
-        return (that.y - this.y) / (that.x - this.x);
+        double x1 = this.x;
+        double x2 = that.x;
+        double y1 = this.y;
+        double y2 = that.y;
+        return (y2 - y1) / (x2 - x1);
     }
 
     /**
@@ -98,9 +107,18 @@ public class Point implements Comparable<Point> {
     private class SlopeComparator implements Comparator<Point> {
         @Override
         public int compare(Point p1, Point p2) {
+            if (p1 == null || p2 == null) {
+                throw new NullPointerException("Input point is null");
+            }
             double slope1 = slopeTo(p1);
             double slope2 = slopeTo(p2);
-            return (int)(slope1 - slope2);
+            if(slope1 < slope2) {
+                return -1;
+            } else if (slope1 > slope2) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 

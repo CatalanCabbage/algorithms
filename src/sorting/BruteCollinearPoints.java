@@ -14,11 +14,17 @@ import java.util.Collections;
  */
 public class BruteCollinearPoints {
     private int numberOfSegments = 0;
-    private LineSegment[] segments = new LineSegment[20]; //Not resizing for brevity
-    private double[] coveredSlopes = new double[20]; //Store slopes of lines in segments, so it's not repeated
+    private LineSegment[] segments;
+    private double[] slopeOfAddedSegments; //Store slopes of lines in segments, so it's not repeated
+    private Point[] pointInAddedSegments;
 
     // finds all line segments containing 4 points
     public BruteCollinearPoints(Point[] points) {
+        if (segments == null) {
+            segments = new LineSegment[points.length / 4];
+            pointInAddedSegments = new Point[points.length / 4];
+            slopeOfAddedSegments = new double[points.length / 4];
+        }
         double slope;
         for (int i = 0; i < points.length; i++) {
             //StdOut.println("");
@@ -31,7 +37,7 @@ public class BruteCollinearPoints {
                     continue;
                 }
                 slope = points[i].slopeTo(points[j]);   //Find Δ(p0-p1)
-                StdOut.println("Slope of " + points[i] + " to " + points[j] + " = " + slope);
+                //StdOut.println("Slope of " + points[i] + " to " + points[j] + " = " + slope);
                 for (int k = 0; k < points.length; k++) {
                     //StdOut.print(" k = " + k);
                     if(k == i || k == j) {
@@ -46,7 +52,7 @@ public class BruteCollinearPoints {
                             }
                             if (points[k].slopeTo(points[l]) == slope) { //Δ(p3-p2) == Δ(p2-p1) == Δ(p0-p1)
                                 Point[] commonPoints = {points[i], points[j], points[k], points[l]};
-                                StdOut.println("Adding segment; (i, j, k, l) =  ( " + i + " , " + j + " , " + k + " , " + l + " )");
+                                //StdOut.println("Adding segment; (i, j, k, l) =  ( " + i + " , " + j + " , " + k + " , " + l + " )");
                                 addSegment(commonPoints);
                             }
                         }
@@ -54,14 +60,24 @@ public class BruteCollinearPoints {
                 }
             }
         }
-
-
+        LineSegment[] temp = new LineSegment[numberOfSegments];
+        for (int i = 0; i < numberOfSegments; i++) {
+            temp[i] = segments[i];
+        }
+        segments = temp;
     }
 
-    private boolean isSlopeAlreadyCovered(double slope) {
-        for (double coveredSlope : coveredSlopes) { //Continue if a line segment with this slope has already been saved
-            if (slope == coveredSlope) {
-                return true;
+    //Check if that slope is covered already by a previous segment. If it does, it's
+    //either the same segment, or a parallel segment. However, if a point in the input
+    //lies on a previous segment, it's the same line segment.
+    private boolean isSegmentAlreadyCovered(double slope, Point[] points) {
+        for (int i = 0; i < numberOfSegments; i++) {
+            if (slopeOfAddedSegments[i] == slope) { //Check for matching slope
+                for (Point point : points) {
+                    if (point.compareTo(pointInAddedSegments[i]) == 0) { //Check for same point
+                        return true;
+                    }
+                }
             }
         }
         return false;
@@ -69,7 +85,7 @@ public class BruteCollinearPoints {
 
     //Takes an array of points, stores the longest line segment
     private void addSegment(Point[] points) {
-        if (isSlopeAlreadyCovered(points[0].slopeTo(points[1]))) {
+        if (isSegmentAlreadyCovered(points[0].slopeTo(points[1]), points)) {
             return;
         }
         Point minPoint = points[0];
@@ -80,7 +96,9 @@ public class BruteCollinearPoints {
         }
         LineSegment segment = new LineSegment(minPoint, maxPoint);
         segments[numberOfSegments] = segment;
-        coveredSlopes[numberOfSegments++] = minPoint.slopeTo(maxPoint);
+        slopeOfAddedSegments[numberOfSegments] = minPoint.slopeTo(maxPoint);
+        pointInAddedSegments[numberOfSegments] = minPoint;
+        numberOfSegments++;
     }
 
     // the number of line segments
@@ -94,9 +112,9 @@ public class BruteCollinearPoints {
 
     public static void main(String[] args) {
         Point  point1 = new Point(1, 1);
-        Point  point2 = new Point(2, 2);
-        Point  point3 = new Point(3, 3);
-        Point  point4 = new Point(4, 4);
+        Point  point2 = new Point(1, 2);
+        Point  point3 = new Point(1, 3);
+        Point  point4 = new Point(1, 4);
         Point[] points = {point1, point2, point3, point4};
         BruteCollinearPoints bcp = new BruteCollinearPoints(points);
         StdOut.println("numberOfSegments = " + bcp.numberOfSegments());
@@ -104,7 +122,7 @@ public class BruteCollinearPoints {
             StdOut.print(segment + ", ");
         }
         StdOut.println("\nCovered slopes = ");
-        for(double slope : bcp.coveredSlopes) {
+        for(double slope : bcp.slopeOfAddedSegments) {
             StdOut.print(slope + ", ");
         }
     }
