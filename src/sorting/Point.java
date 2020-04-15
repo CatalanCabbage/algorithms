@@ -58,7 +58,7 @@ public class Point implements Comparable<Point> {
             return Double.NEGATIVE_INFINITY;
         } else if (that.x - this.x == 0) { //implies slope is vertical
             return Double.POSITIVE_INFINITY;
-        } else if (that.y - this.y == 0) { //implies slope is vertical
+        } else if (that.y - this.y == 0) { //implies slope is horizontal
             return 0;
         }
         double x1 = this.x;
