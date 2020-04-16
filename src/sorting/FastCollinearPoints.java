@@ -11,7 +11,7 @@ import edu.princeton.cs.algs4.StdOut;
  * <p>
  * Given an array of points, find maximal line segment containing 4 or more points exactly once
  * Constraints: Time = O(n^2 log n), Space = n + number of line segments
- * 
+ * <p>
  * Assignment Score: 95/100
  */
 public class FastCollinearPoints {
@@ -117,7 +117,7 @@ public class FastCollinearPoints {
      * @Param slopes : Sorted array of slopes
      * Logic: When slope made with different points are same, it means those points are collinear with the ref point
      * Hence, counts number of times Slope is repeated; if repeated >= 3 times, create a segment
-    */
+     */
     private void findAndAddSegments(double[][] slopes) {
         double currentSlope = slopes[0][0]; //[0][0] == Negative Infinity (Least value, slope of point to itself)
         int start = 0;
@@ -179,7 +179,7 @@ public class FastCollinearPoints {
     //If the slope matches AND any there's a common point, then it's the same line; it's duplicate
     private boolean isSegmentDuplicate(double slope, Point[] points) {
         Node tempNode = foundSegmentsNode;
-        while (tempNode!= null) {
+        while (tempNode != null) {
             if (tempNode.slope == slope) { //Check if same slope
                 for (int i = 0; i < points.length; i++) { //If yes, check for a common point
                     if (tempNode.pointOnSegment == points[i]) {
@@ -194,18 +194,19 @@ public class FastCollinearPoints {
 
     //Linked list impl containing Slope and any one Point from a found segment, for isSegmentDuplicate() method
     private Node foundSegmentsNode;
+
     private class Node {
         private Node nextNode;
         private double slope;
         private Point pointOnSegment;
 
-        Node (double slope, Point point) {
+        Node(double slope, Point point) {
             this.slope = slope;
             this.pointOnSegment = point;
         }
     }
 
-    private void addToFoundSegments (double slope, Point point) {
+    private void addToFoundSegments(double slope, Point point) {
         Node node = new Node(slope, point);
         if (foundSegmentsNode == null) { //This is the first node
             foundSegmentsNode = node;

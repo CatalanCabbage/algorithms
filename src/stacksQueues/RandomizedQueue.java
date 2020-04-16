@@ -4,6 +4,7 @@
 
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -50,7 +51,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 newQueue[i] = queue[i];
             }
             queue = newQueue;
-            totalSize = totalSize/2;
+            totalSize = totalSize / 2;
         } else if (nextIndex > (totalSize * 3 / 4)) {
             Item[] newQueue = (Item[]) new Object[totalSize * 2];
             for (int i = 0; i < nextIndex; i++) {
@@ -80,7 +81,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
         int randIndex = StdRandom.uniform(nextIndex); //returns random [0,index)
         Item randItem = queue[randIndex];
-        if(randIndex != nextIndex - 1) { //item removed isn't the last item
+        if (randIndex != nextIndex - 1) { //item removed isn't the last item
             queue[randIndex] = queue[nextIndex - 1]; //Substitute removed item with last item
         }
         queue[nextIndex - 1] = null; // Make old last index available for GC
@@ -110,7 +111,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         RandomizedQueueIterator() {
             itrNextIndex = nextIndex;
             itrQueue = (Item[]) new Object[itrNextIndex];
-            for(int i = 0; i < itrNextIndex; i++) {
+            for (int i = 0; i < itrNextIndex; i++) {
                 itrQueue[i] = queue[i];
             }
         }
@@ -156,7 +157,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         StdOut.print(queue.sample());
         StdOut.println("\nItems present");
         Iterator itr = queue.iterator();
-        while (itr.hasNext()){
+        while (itr.hasNext()) {
             StdOut.print(itr.next());
         }
         StdOut.println("\nDeque 2 items");
@@ -164,7 +165,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         StdOut.print(queue.dequeue());
         StdOut.println("\nItems present");
         itr = queue.iterator();
-        while (itr.hasNext()){
+        while (itr.hasNext()) {
             StdOut.print(itr.next());
         }
         StdOut.println("\nisEmpty = " + queue.isEmpty());

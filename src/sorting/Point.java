@@ -3,6 +3,7 @@
  */
 
 import java.util.Comparator;
+
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -14,8 +15,8 @@ public class Point implements Comparable<Point> {
     /**
      * Initializes a new point.
      *
-     * @param  x the <em>x</em>-coordinate of the point
-     * @param  y the <em>y</em>-coordinate of the point
+     * @param x the <em>x</em>-coordinate of the point
+     * @param y the <em>y</em>-coordinate of the point
      */
     public Point(int x, int y) {
         this.x = x;
@@ -47,7 +48,7 @@ public class Point implements Comparable<Point> {
      * Double.POSITIVE_INFINITY if the line segment is vertical;
      * and Double.NEGATIVE_INFINITY if (x0, y0) and (x1, y1) are equal.
      *
-     * @param  that the other point
+     * @param that the other point
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
@@ -73,12 +74,12 @@ public class Point implements Comparable<Point> {
      * Formally, the invoking point (x0, y0) is less than the argument point
      * (x1, y1) if and only if either y0 < y1 or if y0 = y1 and x0 < x1.
      *
-     * @param  that the other point
+     * @param that the other point
      * @return the value <tt>0</tt> if this point is equal to the argument
-     *         point (x0 = x1 and y0 = y1);
-     *         a negative integer if this point is less than the argument
-     *         point; and a positive integer if this point is greater than the
-     *         argument point
+     * point (x0 = x1 and y0 = y1);
+     * a negative integer if this point is less than the argument
+     * point; and a positive integer if this point is greater than the
+     * argument point
      */
     public int compareTo(Point that) {
         if (this.y < that.y) {
@@ -112,7 +113,7 @@ public class Point implements Comparable<Point> {
             }
             double slope1 = slopeTo(p1);
             double slope2 = slopeTo(p2);
-            if(slope1 < slope2) {
+            if (slope1 < slope2) {
                 return -1;
             } else if (slope1 > slope2) {
                 return 1;
@@ -137,8 +138,8 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        Point  point1 = new Point(1, 2);
-        Point  point2 = new Point(4, 8);
+        Point point1 = new Point(1, 2);
+        Point point2 = new Point(4, 8);
         StdOut.println(point1);
         StdOut.println("Point1 == Point2? " + point1.equals(point2));
         StdOut.println("Slope = " + point1.slopeTo(point2));
