@@ -15,7 +15,6 @@ import edu.princeton.cs.algs4.StdOut;
  * Assignment Score: 95/100
  */
 public class FastCollinearPoints {
- 
     private Point[] points;
     private LineSegment[] segments;
     private int numOfSegments = 0;
