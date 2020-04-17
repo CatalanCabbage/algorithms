@@ -1,0 +1,8 @@
+# Submitted zip files
+*.zip
+
+# IntelliJ config files
+.idea/
+
+# IntelliJ output
+out/
