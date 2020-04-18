@@ -8,6 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 /**
  * --Assignment
+ * (Mergesort, Linked List implemented)
  * <p>
  * Given an array of points, find maximal line segment containing 4 or more points exactly once
  * Constraints: Time = O(n^2 log n), Space = n + number of line segments

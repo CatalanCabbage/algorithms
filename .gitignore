@@ -3,6 +3,10 @@
 
 # IntelliJ config files
 .idea/
+algorithms-princeton.iml
 
 # IntelliJ output
 out/
+
+# Test Input files
+*.txt
