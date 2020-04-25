@@ -56,6 +56,33 @@ Follows progress of course:
 * **Find Collinear points** given a set of points: Sort by slope, and count
 * **Dijkstra's 3 way partitioning**: Quicksort mod for inputs with duplicate keys
 
+#### Priority Queues
+* Ordered based on priority, structurally a tree in an array
+* Removal of max/min from the heap is constant time
+* For min-heap, each parent is less than it's children, and vice versa
+* Completely balanced tree: Has all values filled except for bottom level
+* When starting entries from index 1:
+    * Parent(`n`) = `n/2`
+    * Children(`n`) = `2n`, `2n + 1`
+* Some applications: 
+    * A* algorithm, like Game trees 
+    * Maintaining top x entries from a large dataset, for eg., by Timestamp
+    * Data compression, Huffman codes (todo)
+    * Dijkstra's shortest path (todo with graphs)
+* Operations: 
+    * `sink`, dropping a value down the tree to correct position
+    * `swim`, raising a value up the tree to correct position
+* HeapSort:
+    * In-place sort with `nlog(n)` worst case
+    * Operations:
+        * Heap construction: at most `2n` compares and exchanges (mathematical proof)
+        * Heap sort: at most `2nlog(n)` compares and exchanges
+    * Disadvantages:
+        * Inner loop is longer than QuickSort's
+        * Poor use of cache, since references are all over the place
+        * Unstable sort
+        
+        
 #### Sorts recap
 
 | x | In-Place | Stable | Worst | Avg | Best | Remarks |
@@ -66,3 +93,4 @@ Follows progress of course:
 |Merge| N       | Y | `nlog(n)` | `nlog(n)` | `nlog(n)` | extra space |
 |Quick| Y       | N | `n*n` | `nlog(n)` | `nlog(n)` | probabilistically fastest |
 |3-way Quick| Y | N | `n*n` | `nlog(n)` | `n` | quickest with duplicates |
+|HeapSort| Y | N | `nlog(n)` | `nlog(n)` | `nlog(n)` | poor caching |
