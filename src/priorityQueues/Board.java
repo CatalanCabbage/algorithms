@@ -13,9 +13,10 @@ import java.util.Iterator;
  * Constraints: All Board methods in O(n*n) or better in the worst case.
  */
 public class Board {
-    int[][] tiles;
-    int n;
-    Deque<Board> neighborsDeueue;
+    private int[][] tiles;
+    private int n;
+    private Deque<Board> neighborsDeueue;
+    private int manhattanNum;
 
     // create a board from an n-by-n array of tiles,
     // where tiles[row][col] = tile at (row, col)
@@ -23,6 +24,7 @@ public class Board {
         validateTiles(tiles);
         this.tiles = deepClone(tiles);
         n = this.tiles.length;
+        manhattanNum = findManhattanNum();
     }
 
     private void validateTiles(int[][] tiles) {
@@ -78,8 +80,14 @@ public class Board {
         return hammingNum;
     }
 
-    //Sum of Manhattan distances between tiles and goal. ie., vertical + horizontal displacement
+    //Returns num of Manhattan distances between tiles and goal. ie., vertical + horizontal displacement
     public int manhattan() {
+        return manhattanNum;
+    }
+
+    //Finds num of Manhattan distances between tiles and goal. ie., vertical + horizontal displacement
+    //Called during Class initialization
+    private int findManhattanNum() {
         int manhattanNum = 0;
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
@@ -181,10 +189,17 @@ public class Board {
 
     // a board that is obtained by exchanging any pair of tiles
     public Board twin() {
-        int row1 = StdRandom.uniform(n);
-        int row2 = StdRandom.uniform(n);
-        int col1 = StdRandom.uniform(n);
-        int col2 = StdRandom.uniform(n);
+        int row1 = 0;
+        int row2 = 0;
+        int col1 = 0;
+        int col2 = 0;
+        //Both should not point to the same tile, and neither tiles should be the blank tile
+        while ((row1 == row2 && col1 == col2) || (tiles[row1][col1] == 0) || (tiles[row2][col2] == 0)) {
+            row1 = StdRandom.uniform(n);
+            row2 = StdRandom.uniform(n);
+            col1 = StdRandom.uniform(n);
+            col2 = StdRandom.uniform(n);
+        }
         int[][] tempTiles = deepClone(tiles);
         swapTiles(tempTiles, row1, col1, row2, col2);
         return new Board(tempTiles);
