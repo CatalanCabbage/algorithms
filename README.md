@@ -56,7 +56,7 @@ Follows progress of course:
 * **Find Collinear points** given a set of points: Sort by slope, and count
 * **Dijkstra's 3 way partitioning**: Quicksort mod for inputs with duplicate keys
 
-#### Priority Queues
+#### Priority Queues (min-max heap)
 * Methods needed for a MaxPQ implementation:
     * `insert()`
     * `max()`
@@ -65,27 +65,27 @@ Follows progress of course:
     * `size()`
 * Ordered based on priority, structurally a tree in an array
 * Removal of max/min from the heap is constant time
-* For min-heap, each parent is less than it's children, and vice versa
-* Completely balanced tree: Has all values filled except for bottom level
+* For **min-heap**, **each parent is less than it's children**, and vice versa
+* **Completely balanced tree**: Has all values filled except for bottom level
 * When starting entries from index 1:
     * Parent(`n`) = `n/2`
     * Children(`n`) = `2n`, `2n + 1`
-* Some applications: 
+* **Some applications**: 
     * A* algorithm, like Game trees 
     * Maintaining **top x entries from a large dataset**, for eg., by Timestamp
     * Data compression, Huffman codes (todo)
     * Dijkstra's shortest path (todo with graphs)
-* Operations: 
+* **Operations**: 
     * `sink`, dropping a value down the tree to correct position
     * `swim`, raising a value up the tree to correct position
-* HeapSort:
+* **HeapSort**:
     * In-place sort with `nlog(n)` worst case
     * Operations:
-        * Heap construction: at most `2n` compares and exchanges (mathematical proof)
-        * Heap sort: at most `2nlog(n)` compares and exchanges
+        * **Heap construction**: at most `2n` compares and exchanges (mathematical proof)
+        * **Heap sort**: at most `2nlog(n)` compares and exchanges
     * Disadvantages:
         * Inner loop is longer than QuickSort's
-        * Poor use of cache, since references are all over the place
+        * **Poor use of cache**, since references are all over the place
         * Unstable sort
         
         
@@ -100,3 +100,31 @@ Follows progress of course:
 |Quick| Y       | N | `n*n` | `nlog(n)` | `nlog(n)` | probabilistically fastest |
 |3-way Quick| Y | N | `n*n` | `nlog(n)` | `n` | quickest with duplicates |
 |HeapSort| Y | N | `nlog(n)` | `nlog(n)` | `nlog(n)` | poor caching |
+
+#### Elementary Symbol Tables
+* Data structure **for key-value pairs**, where **keys are unique**
+* Cases where lookups need to happen quickly
+* General: **Conditions for Equality**, for `.equals(Obj)`
+    * Reflexive: `x.equals(x)` is `true`
+    * Symmetric: if `x.equals(y)` then `y.equals(x)`
+    * Transitive: if `x.equals(y)` and `y.equals(z)`, `x.equals(z)`
+    * (Java specific): `x.equals(null)` is `false`
+* **Binary Search Trees**
+    * **Invariant for each node**: 
+        * Subtrees to the left are smaller
+        * Subtrees to the right are larger
+    * General operations:
+        * `find(key)` : Look left if smaller than current, right if bigger
+        * `put(key)` : If key already present, change value. Else insert
+    * When maintained in order, more operations can be performed efficiently
+        * `floor(key)`, `ceil(key)`
+        * `rank(key)` : Number of keys smaller than `key` == `size(left) + rank(right)`
+        * `select(n)` : `n`th largest key
+    * **Tree shape depends on insertion order**
+    * In-order traversal: `inorder(left)`, `enqueue(key)`, `inorder(right)`
+    * `delete(key)` : Hibbard deletion
+        * Replace node with minimum of node's right subtree
+        * Thus, the replacement is:
+            * More than left child(since it's taken from right) 
+            * Less than right child(since it's right's minimum)
+        * **Eventually unbalances tree**; `h` becomes `sqrt(n)` instead of `log(n)`
