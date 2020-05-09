@@ -101,7 +101,7 @@ Follows progress of course:
 |3-way Quick| Y | N | `n*n` | `nlog(n)` | `n` | quickest with duplicates |
 |HeapSort| Y | N | `nlog(n)` | `nlog(n)` | `nlog(n)` | poor caching |
 
-#### Elementary Symbol Tables
+#### Symbol Tables
 * Data structure **for key-value pairs**, where **keys are unique**
 * Cases where lookups need to happen quickly
 * General: **Conditions for Equality**, for `.equals(Obj)`
@@ -128,3 +128,37 @@ Follows progress of course:
             * More than left child(since it's taken from right) 
             * Less than right child(since it's right's minimum)
         * **Eventually unbalances tree**; `h` becomes `sqrt(n)` instead of `log(n)`
+*   **2-3 Trees**
+    * Allows 1 or 2 keys per node, and max 3 children
+        * 2-node: 1 key, 2 nodes
+            * `Node left` < `key a` < `Node left`
+        * 3-node: 2 keys, 3 nodes
+            * `Node left` < `key a` < `Node middle` < `key b` < `Node right` 
+    * Perfectly balanced: Every path from root to null link has the same length
+    * Adding keys, general behaviour:
+        * Add `b` to `ac`: 
+            * Becomes `abc` 
+            * `abc` splits; middle `b` becomes parent, `a` and `c` children
+        * Add `b` to `ac` with parent `d`: 
+            * Becomes `abc` with parent `d`
+            * `abc` splits; middle `b` joins `d`; `bd` becomes parent, `a` and `c` children
+*   **Red-Black Trees**
+    * Red links are internal links. <br>For a 3-node `ab`, link between
+      `a` and `b` is the red link.
+    * Red links are left leaning
+    * Basic internal operations: 
+        * `rotateLeft` : Insertion, when new `Node` ends up on the right of a 3-node,
+          <br>the link is a red link. Red links should be left leaning; this, rotate.
+        * `rotateRight` : When left and left.left are red
+        * `flipColor` : Used to split 4-node into 3-node
+    * Applications: File systems, memory, SQL, Java's TreeMap, TreeSet
+
+#### Symbol Tables recap
+
+|Time, worst and avg|Search(worst)|Insert(worst)|Delete(worst)|Search(avg)|Insert(avg)|Delete(avg)|Remarks|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|Sequential search|`n`|`n`|`n`|`n/2`|`n`| `n/2`| Insert indicates search(miss)|
+|Binary search|`log(n)`|`n`|`n`|`log(n)`|`n/2`|`n/2`|Array resizing to be considered|
+|BST|`n`|`n`|`n`|`1.4log(n)`|`n/2`|`?`|Deletion/insertion order affects complexity|
+|2-3 Tree|`clog(n)`|`clog(n)`|`clog(n)`|`clog(n)`|`clog(n)`|`clog(n)`|Always balanced|
+|Red-Black Tree|`2log(n)`|`2log(n)`|`2log(n)`|`log(n)`|`log(n)`|`log(n)`|Impl of 2-3 Tree|
