@@ -57,6 +57,12 @@ Follows progress of course:
 * **Dijkstra's 3 way partitioning**: Quicksort mod for inputs with duplicate keys
 
 #### Priority Queues
+* Methods needed for a MaxPQ implementation:
+    * `insert()`
+    * `max()`
+    * `delMax()`
+    * `isEmpty()`
+    * `size()`
 * Ordered based on priority, structurally a tree in an array
 * Removal of max/min from the heap is constant time
 * For min-heap, each parent is less than it's children, and vice versa
@@ -66,7 +72,7 @@ Follows progress of course:
     * Children(`n`) = `2n`, `2n + 1`
 * Some applications: 
     * A* algorithm, like Game trees 
-    * Maintaining top x entries from a large dataset, for eg., by Timestamp
+    * Maintaining **top x entries from a large dataset**, for eg., by Timestamp
     * Data compression, Huffman codes (todo)
     * Dijkstra's shortest path (todo with graphs)
 * Operations: 
