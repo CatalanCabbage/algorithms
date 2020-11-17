@@ -152,6 +152,7 @@ Follows progress of course:
         * `rotateRight` : When left and left.left are red
         * `flipColor` : Used to split 4-node into 3-node
     * Applications: File systems, memory, SQL, Java's TreeMap, TreeSet
+*   **Kd Trees**
 
 #### Symbol Tables recap
 
@@ -162,3 +163,19 @@ Follows progress of course:
 |BST|`n`|`n`|`n`|`1.4log(n)`|`n/2`|`?`|Deletion/insertion order affects complexity|
 |2-3 Tree|`clog(n)`|`clog(n)`|`clog(n)`|`clog(n)`|`clog(n)`|`clog(n)`|Always balanced|
 |Red-Black Tree|`2log(n)`|`2log(n)`|`2log(n)`|`log(n)`|`log(n)`|`log(n)`|Impl of 2-3 Tree|
+
+#### 1-d range search, efficiency
+
+|Data-structure|Insert|Range-count|Range-search|
+|:---:|:---:|:---:|:---:|
+|Unordered array|`1`|`n`|`n`|
+|Ordered array|`n`|`log(n)`|`matches + log(n)`|
+|Trees|`log(n)`|`log(n)`|`matches + log(n)`| 
+```java
+//Get Range count between (high, low) in trees 
+if(treeContains(high))
+    rank(high) - rank(low) + 1;
+else
+    rank(high) - rank(low);
+```
+
