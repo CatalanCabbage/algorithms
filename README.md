@@ -82,7 +82,7 @@ Follows progress of course:
     * In-place sort with `nlog(n)` worst case
     * How?
         * First heapify(max-heap) the unordered array:
-            *  Heapify all sub-trees: Keep doing `sink()` on all parents, starting from the last(heap of size 3)
+            *  Heapify all sub-trees: Keep doing `sink()` on all parents, starting from `n/2` (heap of size 3) and then `n--`
         * Remove max - swap element at `1` with `n`
         * Restore heap-order: `swim()` the new `1`
         * Remove max - swap wlwmwnt at `1` with `n-1`
